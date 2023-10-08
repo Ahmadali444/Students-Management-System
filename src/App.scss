@@ -1,0 +1,55 @@
+@import "./scss/bootstrap";
+
+// Set Main to Whole Body 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+// Auth Pages Backend 
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 48px;
+
+  .card {
+    max-width: 450px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 0;
+    margin: 0 auto;
+  }
+}
+
+// BackImage Animated
+.backImage {
+  background-image: url("https://source.unsplash.com/random/?tech");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .trans {
+    opacity: 0.5;
+  }
+
+  .trans:hover {
+    opacity: 1;
+  }
+}
+
+.navbar-brand {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 767px) {
+  .navbar-brand {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
