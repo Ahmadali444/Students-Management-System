@@ -6,28 +6,24 @@ import { Button, Col, Divider, Form, Input, Modal, Space, Tooltip, message } fro
 import { useAuthContext, useSelectDataContext } from '../../contexts/AuthContext';
 import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc, where } from 'firebase/firestore';
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+import courseImage from "../../assets/images/course.jpeg"
+import teacherImage from "../../assets/images/teachers.jpeg"
+import attendanceImage from "../../assets/images/attendence.jpeg"
+import resultImage from "../../assets/images/results.jpeg"
+import assignmentImage from "../../assets/images/assignment.jpeg"
+import reportImage from "../../assets/images/report.png"
+import noticeImage from "../../assets/images/notice.jpeg"
+
 
 export default function Dashboard() {
 
     const { selectedData, setSelectedData } = useSelectDataContext();
     const [examResults, setExamResults] = useState([]); // State to store exam results data
     const [courses, setCourses] = useState([]);
-    const [teacher, setTeacher] = useState([]);
     const [attendance, setAttendance] = useState([]); // State to store attendance data
     const [assignments, setAssignments] = useState([]);
     const [reports, setReports] = useState([]);
     const [notices, setNotices] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-
-    const handleOpenModal = () => {
-        console.log("open")
-        setShowModal(true);
-    };
-
-    const handleCloseModal = () => {
-        console.log("close")
-        setShowModal(false);
-    };
 
     const openDashboard = () => {
         var element = document.getElementById("sidebarMenu");
@@ -57,8 +53,8 @@ export default function Dashboard() {
         // Dashboard data
         return (
             <>
-                <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 className="h2">Dashboard</h1>
+                <div className="pt-3 pb-2 mb-3 border-bottom">
+                    <h1 className="h2 text-center">Dashboard</h1>
                     {/* <div className="btn-toolbar mb-2 mb-md-0"> */}
                     {/* <div className="btn-group me-2">
                                     <button type="button" className="btn btn-sm btn-outline-secondary">Share</button>
@@ -71,137 +67,90 @@ export default function Dashboard() {
                     {/* </div> */}
                 </div>
 
-                <canvas className="my-4 w-100" id="myChart" width="610" height="257" style={{ display: 'block', boxSizing: 'border-box', height: '257px', width: '610px' }}></canvas>
+                {/* <canvas className="my-4 w-100" id="myChart" width="610" height="257" style={{ display: 'block', boxSizing: 'border-box', height: '257px', width: '610px' }}></canvas> */}
 
                 <h2>Section title</h2>
-                <div className="table-responsive small">
-                    <table className="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                                <th scope="col">Header</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>random</td>
-                                <td>data</td>
-                                <td>placeholder</td>
-                                <td>text</td>
-                            </tr>
-                            <tr>
-                                <td>1,002</td>
-                                <td>placeholder</td>
-                                <td>irrelevant</td>
-                                <td>visual</td>
-                                <td>layout</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>data</td>
-                                <td>rich</td>
-                                <td>dashboard</td>
-                                <td>tabular</td>
-                            </tr>
-                            <tr>
-                                <td>1,003</td>
-                                <td>information</td>
-                                <td>placeholder</td>
-                                <td>illustrative</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,004</td>
-                                <td>text</td>
-                                <td>random</td>
-                                <td>layout</td>
-                                <td>dashboard</td>
-                            </tr>
-                            <tr>
-                                <td>1,005</td>
-                                <td>dashboard</td>
-                                <td>irrelevant</td>
-                                <td>text</td>
-                                <td>placeholder</td>
-                            </tr>
-                            <tr>
-                                <td>1,006</td>
-                                <td>dashboard</td>
-                                <td>illustrative</td>
-                                <td>rich</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,007</td>
-                                <td>placeholder</td>
-                                <td>tabular</td>
-                                <td>information</td>
-                                <td>irrelevant</td>
-                            </tr>
-                            <tr>
-                                <td>1,008</td>
-                                <td>random</td>
-                                <td>data</td>
-                                <td>placeholder</td>
-                                <td>text</td>
-                            </tr>
-                            <tr>
-                                <td>1,009</td>
-                                <td>placeholder</td>
-                                <td>irrelevant</td>
-                                <td>visual</td>
-                                <td>layout</td>
-                            </tr>
-                            <tr>
-                                <td>1,010</td>
-                                <td>data</td>
-                                <td>rich</td>
-                                <td>dashboard</td>
-                                <td>tabular</td>
-                            </tr>
-                            <tr>
-                                <td>1,011</td>
-                                <td>information</td>
-                                <td>placeholder</td>
-                                <td>illustrative</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,012</td>
-                                <td>text</td>
-                                <td>placeholder</td>
-                                <td>layout</td>
-                                <td>dashboard</td>
-                            </tr>
-                            <tr>
-                                <td>1,013</td>
-                                <td>dashboard</td>
-                                <td>irrelevant</td>
-                                <td>text</td>
-                                <td>visual</td>
-                            </tr>
-                            <tr>
-                                <td>1,014</td>
-                                <td>dashboard</td>
-                                <td>illustrative</td>
-                                <td>rich</td>
-                                <td>data</td>
-                            </tr>
-                            <tr>
-                                <td>1,015</td>
-                                <td>random</td>
-                                <td>tabular</td>
-                                <td>information</td>
-                                <td>text</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row g-3 mb-5">
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("courses")}>
+                            <div class="card h-100">
+                                <img src={courseImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3>Courses</h3>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("teachers")}>
+                            <div class="card h-100">
+                                <img src={teacherImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3>Teachers</h3>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("attendence")}>
+                            <div class="card h-100">
+                                <img src={attendanceImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3>Attendence</h3>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("results")}>
+                            <div class="card h-100">
+                                <img src={reportImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3 className='d-inline-block'>Results</h3><p className='d-inline-block'>(pending...)</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("assignments")}>
+                            <div class="card h-100">
+                                <img src={assignmentImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3 className='d-inline-block'>Assignments</h3><p className='d-inline-block'>(pending...)</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("reports")}>
+                            <div class="card h-100">
+                                <img src={reportImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3 className='d-inline-block'>Reports</h3><p className='d-inline-block'>(pending...)</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                    <div class="col col-lg-4 col-md-6 col-sm-6">
+                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("notice")}>
+                            <div class="card h-100">
+                                <img src={noticeImage} class="card-img-top" alt="course" />
+                                <Divider className='mb-0' />
+                                <div class="card-body text-center">
+                                    <h3 className='d-inline-block'>Notice</h3><p className='d-inline-block'>(pending...)</p>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
-            </>)
+            </>
+        )
     }
 
     const ShowProfileData = () => {
@@ -254,32 +203,6 @@ export default function Dashboard() {
         fetchCourses();
     }, []);
 
-    useEffect(() => {
-        // Define an async function to fetch courses
-        const fetchTeacher = async () => {
-            try {
-                const TeacherCollection = collection(db, 'teachers'); // Replace 'courses' with the actual name of your Firestore collection
-                const querySnapshot = await getDocs(TeacherCollection);
-
-                // Extract course data from the query snapshot and store it in state
-                const teacherData = [];
-                querySnapshot.forEach((doc) => {
-                    const teacher = doc.data();
-                    teacherData.push({
-                        ...teacher,
-                    });
-                });
-                console.log("tststats", teacherData)
-                setTeacher(teacherData);
-            } catch (error) {
-                console.error('Error fetching courses:', error);
-            }
-        };
-
-        // Call the fetchCourses function when the component mounts
-        fetchTeacher();
-    }, []);
-
     const [courseData, setCourseData] = useState({
         name: '',
         code: '',
@@ -295,7 +218,7 @@ export default function Dashboard() {
     };
 
     const handleAddCourse = () => {
-
+        console.log("jyyy")
         let { name, code, description } = courseData
 
         const course = {
@@ -308,32 +231,43 @@ export default function Dashboard() {
     const createDocument = async (course) => {
         console.log("course", course)
         try {
-            const allCourse = doc(collection(db, "course"));
+            // const allCourse = doc(collection(db, "course"));
+            const allCourse = doc(firestore, "course", course.id);
+            // await setDoc(doc(firestore, "course", course.id), course);
 
             console.log("allCourse", allCourse)
             // later...
             await setDoc(allCourse, course);
             console.log("allCourse11")
-            // Close the modal
-            setShowModal(false);
-            showCoursesData();
+            const coursesCollection = collection(db, 'course'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(coursesCollection);
 
-            // setDoc(doc(firestore, "course"), course);
+            // Extract course data from the query snapshot and store it in state
+            const courseData = [];
+            querySnapshot.forEach((doc) => {
+                const course = doc.data();
+                courseData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...course,
+                });
+            });
+
+            setCourses(courseData);
+
             message.success("A new todo added successfully");
         } catch (e) {
             console.error("Error adding document: ");
         }
     };
 
-    const handleEdite = () => {
-
-    }
+    useEffect(() => {
+        showCoursesData();
+    }, [courses])
 
     const handleDelete = async (course) => {
 
         try {
             await deleteDoc(doc(firestore, "course", course.id));
-            console.log("setCourses", courses)
             let documentsAfterDelete = courses.filter(doc => doc.id !== course.id)
             // setAllDocuments(documentsAfterDelete)
             setCourses(documentsAfterDelete);
@@ -345,24 +279,59 @@ export default function Dashboard() {
         }
     }
 
-    const [selectedCourse, setSelectedCourse] = useState([]);
-    const editeCourse = async (courseID) => {
-        console.log(courseID)
-        // Assuming that 'courseID' is the document ID of the course to be updated
-        console.log(courseID)
-        const courseRef = doc(db, "courses", { courseID });
+    const openEditeCourse = async (course) => {
+        console.log("course", course)
+        const docRef = doc(firestore, "course", course.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const todo = docSnap.data();
+            console.log("todo", todo);
+            setCourseData(todo);
+        } else {
+            message.error("Course not found");
+        }
+    }
+    useEffect(() => {
+        console.log("editeCourseField111", courseData)
+    }, [courseData])
+
+    const editeCourse = async (e) => {
+        e.preventDefault()
+        console.log("courseData1122", courseData)
+
+        let { name, code, description } = courseData
+
+        if (!name) { return message.error("Please Enter Name") }
+
+        const editedCourseData = {
+            ...courseData,
+            name, code, description,
+        }
 
         try {
-            // Update the course document with the new data
-            await updateDoc(courseRef, courses);
+            await setDoc(doc(firestore, "course", editedCourseData.id), editedCourseData);
 
-            console.log("Course updated successfully");
-        } catch (error) {
-            console.error("Error updating course:", error);
-            // Handle the error appropriately (e.g., show an error message to the user)
+            const coursesCollection = collection(db, 'course'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(coursesCollection);
+
+            // Extract course data from the query snapshot and store it in state
+            const courseData = [];
+            querySnapshot.forEach((doc) => {
+                const course = doc.data();
+                courseData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...course,
+                });
+            });
+
+            setCourses(courseData);
+
+            message.success("Course updated successfully")
+        } catch (e) {
+            console.error("Error adding document: ", e);
         }
-    };
-
+    }
 
     const showCoursesData = () => {
         console.log("showCoursesData")
@@ -395,7 +364,7 @@ export default function Dashboard() {
                                             <td>{course.id}</td>
                                             <td>{course.description}</td>
                                             <td className='px-0'>
-                                                <Button type="primary" className='me-1' icon={<EditOutlined />} data-bs-toggle="modal" id='editeDoc' data-bs-target="#editeModal" onClick={() => editeCourse(course.id)} />
+                                                <Button type="primary" className='me-1' icon={<EditOutlined />} data-bs-toggle="modal" id='editeDoc' data-bs-target="#editeModal" onClick={() => openEditeCourse(course)} />
                                                 <Button danger icon={<DeleteOutlined />} onClick={() => { handleDelete(course) }} />
                                             </td>
                                         </tr>
@@ -417,23 +386,23 @@ export default function Dashboard() {
                             <div class="modal-body">
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Name">
-                                        <Input placeholder='Input Course Name' name='name' onChange={handleChange} />
+                                        <Input placeholder='Input Course Name' name='name' id='editeName' onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Code">
-                                        <Input placeholder='Input Course Code' name='code' onChange={handleChange} />
+                                        <Input placeholder='Input Course Code' name='code' id='editeCode' onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Description">
-                                        <Input placeholder='Input Course Description' name='description' onChange={handleChange} />
+                                        <Input placeholder='Input Course Description' name='description' id='editeDesc' onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                             </div>
                             <div class="modal-footer">
                                 <Button className='w-25' data-bs-dismiss="modal">Close</Button>
-                                <Button className='w-25' onClick={handleAddCourse}>Add</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={handleAddCourse}>Add</Button>
 
                             </div>
                         </div>
@@ -445,29 +414,29 @@ export default function Dashboard() {
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Course</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edite Course</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Name">
-                                        <Input placeholder='Input Course Name' name='name' value={selectedCourse.name} onChange={handleChange} />
+                                        <Input placeholder='Input Course Name' name='name' value={courseData.name} onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Code">
-                                        <Input placeholder='Input Course Code' name='code' value={selectedCourse.code} onChange={handleChange} />
+                                        <Input placeholder='Input Course Code' name='code' value={courseData.code} onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Description">
-                                        <Input placeholder='Input Course Description' name='description' value={selectedCourse.description} onChange={handleChange} />
+                                        <Input placeholder='Input Course Description' name='description' value={courseData.description} onChange={handleChange} />
                                     </Form.Item>
                                 </Col>
                             </div>
                             <div class="modal-footer">
                                 <Button className='w-25' data-bs-dismiss="modal">Close</Button>
-                                <Button className='w-25' onClick={handleAddCourse}>Add</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={editeCourse}>Edite</Button>
 
                             </div>
                         </div>
@@ -476,6 +445,162 @@ export default function Dashboard() {
 
             </>
         )
+    }
+
+    // Teacher Tab
+    useEffect(() => {
+        // Define an async function to fetch courses
+        const fetchTeacher = async () => {
+            try {
+                const TeacherCollection = collection(db, 'teachers'); // Replace 'courses' with the actual name of your Firestore collection
+                const querySnapshot = await getDocs(TeacherCollection);
+
+                // Extract course data from the query snapshot and store it in state
+                const teacherData = [];
+                querySnapshot.forEach((doc) => {
+                    const teacher = doc.data();
+                    teacherData.push({
+                        ...teacher,
+                    });
+                });
+                console.log("tststats", teacherData)
+                setTeachers(teacherData);
+            } catch (error) {
+                console.error('Error fetching teachers:', error);
+            }
+        };
+
+        // Call the fetchCourses function when the component mounts
+        fetchTeacher();
+    }, []);
+    const [teachers, setTeachers] = useState([]);
+    const [teacherData, setTeacherData] = useState({
+        name: '',
+        phone: '',
+        subject: '',
+    });
+
+    const handleTeacherChange = (event) => {
+        const { name, value } = event.target;
+        setTeacherData({
+            ...teacherData,
+            [name]: value,
+        });
+    };
+
+    const handleAddTeacher = () => {
+        console.log("jyyy")
+        let { name, phone, subject } = teacherData
+
+        const teacher = {
+            name, phone, subject,
+            id: Math.random().toString(36).slice(2)
+        }
+        createDocumentTeacher(teacher);
+    };
+
+    const createDocumentTeacher = async (teacher) => {
+        console.log("teacher", teacher)
+        try {
+            // const allCourse = doc(collection(db, "course"));
+            const allTeacher = doc(firestore, "teachers", teacher.id);
+            // await setDoc(doc(firestore, "course", course.id), course);
+
+            // later...
+            await setDoc(allTeacher, teacher);
+            console.log("allCourse11")
+            const coursesCollection = collection(db, 'teachers'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(coursesCollection);
+
+            // Extract course data from the query snapshot and store it in state
+            const teacherData = [];
+            querySnapshot.forEach((doc) => {
+                const teacher = doc.data();
+                teacherData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...teacher,
+                });
+            });
+
+            setTeachers(teacherData);
+            message.success("A new Teacher added successfully");
+
+        } catch (e) {
+            console.error("Error adding document: ");
+        }
+    };
+
+    useEffect(() => {
+        showTeachersData();
+    }, [teachers])
+
+    const handleTeacherDelete = async (teacher) => {
+
+        try {
+            await deleteDoc(doc(firestore, "teachers", teacher.id));
+            let documentsAfterDelete = teachers.filter(doc => doc.id !== teacher.id)
+            // setAllDocuments(documentsAfterDelete)
+            setTeachers(documentsAfterDelete);
+            // setDocuments(documentsAfterDelete)
+            message.success("Teacher deleted successfully")
+        } catch (err) {
+            console.error(err)
+            message.error("something went wrong while delting Teacher")
+        }
+    }
+
+    const openEditeTeacher = async (teacher) => {
+        // console.log("course", course)
+        const docRef = doc(firestore, "teachers", teacher.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const todo = docSnap.data();
+            console.log("todo", todo);
+            setTeacherData(todo);
+        } else {
+            message.error("Teacher not found");
+        }
+    }
+    useEffect(() => {
+        console.log("editeCourseField111", courseData)
+    }, [courseData])
+
+    const editeTeacher = async (e) => {
+        e.preventDefault()
+        // console.log("courseData1122", courseData)
+
+        let { name, phone, subject } = teacherData
+
+        if (!name) { return message.error("Please Enter Name") }
+
+        const editedTeachersData = {
+            ...teacherData,
+            name, phone, subject,
+        }
+
+        try {
+            await setDoc(doc(firestore, "teachers", editedTeachersData.id), editedTeachersData);
+
+            const teachersCollection = collection(db, 'teachers'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(teachersCollection);
+
+            // Extract course data from the query snapshot and store it in state
+            const teacherData = [];
+            querySnapshot.forEach((doc) => {
+                const teacher = doc.data();
+                teacherData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...teacher,
+                });
+            });
+
+            setTeachers(teacherData);
+
+            message.success("Teacher updated successfully")
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
     }
 
     const showTeachersData = () => {
@@ -499,12 +624,16 @@ export default function Dashboard() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {teacher.map((teacher, index) => (
+                                    {teachers.map((teacher, index) => (
                                         <tr key={teacher.id}>
                                             <th scope="row">{index + 1}</th>
                                             <td>{teacher.name}</td>
                                             <td>{teacher.subject}</td>
-                                            <td>{teacher.number}</td>
+                                            <td>{teacher.phone}</td>
+                                            <td className='px-0'>
+                                                <Button type="primary" className='me-1' icon={<EditOutlined />} data-bs-toggle="modal" id='editeDoc' data-bs-target="#editeModal1" onClick={() => openEditeTeacher(teacher)} />
+                                                <Button danger icon={<DeleteOutlined />} onClick={() => { handleTeacherDelete(teacher) }} />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -513,34 +642,67 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Modal for adding a course */}
+                {/* Modal for adding a Teacher */}
                 <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Course</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Teacher</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Name">
-                                        <Input placeholder='Input Course Name' name='name' onChange={handleChange} />
+                                        <Input placeholder='Input Teacher Name' name='name' onChange={handleTeacherChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
-                                    <Form.Item label="Code">
-                                        <Input placeholder='Input Course Code' name='code' onChange={handleChange} />
+                                    <Form.Item label="Phone">
+                                        <Input placeholder='Input Teacher Phone Number' name='phone' onChange={handleTeacherChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
-                                    <Form.Item label="Description">
-                                        <Input placeholder='Input Course Description' name='description' onChange={handleChange} />
+                                    <Form.Item label="Subject">
+                                        <Input placeholder='Input Teacher Subject' name='subject' onChange={handleTeacherChange} />
                                     </Form.Item>
                                 </Col>
                             </div>
                             <div class="modal-footer">
                                 <Button className='w-25' data-bs-dismiss="modal">Close</Button>
-                                <Button className='w-25' onClick={handleAddCourse}>Add</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={handleAddTeacher}>Add</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Modal Edite for course */}
+                <div class="modal fade" id="editeModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edite Teacher</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Name">
+                                        <Input placeholder='Input Teacher Name' name='name' value={teacherData.name} onChange={handleTeacherChange} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Subject">
+                                        <Input placeholder='Input Teacher Subject' name='subject' value={teacherData.subject} onChange={handleTeacherChange} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Phone">
+                                        <Input placeholder='Input Teacher Phone' name='phone' value={teacherData.phone} onChange={handleTeacherChange} />
+                                    </Form.Item>
+                                </Col>
+                            </div>
+                            <div class="modal-footer">
+                                <Button className='w-25' data-bs-dismiss="modal">Close</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={editeTeacher}>Edite</Button>
 
                             </div>
                         </div>
@@ -551,6 +713,7 @@ export default function Dashboard() {
         )
     }
 
+    // Attendance Tab
     const fetchAttendanceData = async () => {
         try {
             // Replace 'attendance' with the actual name of your Firestore collection for attendance
@@ -580,10 +743,165 @@ export default function Dashboard() {
         }
     }, [selectedData]);
 
-    const showattendenceData = () => {
+    useEffect(() => {
+        // Define an async function to fetch courses
+        const fetchAttendance = async () => {
+            try {
+                const attendanceCollection = collection(db, 'attendance'); // Replace 'courses' with the actual name of your Firestore collection
+                const querySnapshot = await getDocs(attendanceCollection);
+
+                // Extract course data from the query snapshot and store it in state
+                const attendanceData = [];
+                querySnapshot.forEach((doc) => {
+                    const attendance = doc.data();
+                    attendanceData.push({
+                        ...attendance,
+                    });
+                });
+                console.log("tststats", attendanceData)
+                setAttendances(attendanceData);
+            } catch (error) {
+                console.error('Error fetching attendances:', error);
+            }
+        };
+
+        // Call the fetchCourses function when the component mounts
+        fetchAttendance();
+    }, []);
+    const [attendances, setAttendances] = useState([]);
+    const [attendanceData, setAttendanceData] = useState({
+        name: '',
+        date: '',
+        status: '',
+    });
+
+    const handleAttendanceChange = (event) => {
+        const { name, value } = event.target;
+        setAttendanceData({
+            ...attendanceData,
+            [name]: value,
+        });
+    };
+
+    const handleAddAttendance = () => {
+        console.log("jyyy")
+        let { name, date, status } = attendanceData
+
+        const attendance = {
+            name, date, status,
+            id: Math.random().toString(36).slice(2)
+        }
+        createDocumentAttendance(attendance);
+    };
+
+    const createDocumentAttendance = async (attendance) => {
+        console.log("attendance", attendance)
+        try {
+            // const allCourse = doc(collection(db, "course"));
+            const allAttendance = doc(firestore, "attendance", attendance.id);
+            // await setDoc(doc(firestore, "course", course.id), course);
+
+            // later...
+            await setDoc(allAttendance, attendance);
+            console.log("allCourse11")
+            const coursesCollection = collection(db, 'attendance'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(coursesCollection);
+
+            // Extract course data from the query snapshot and store it in state
+            const attendanceData = [];
+            querySnapshot.forEach((doc) => {
+                const attendance = doc.data();
+                attendanceData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...attendance,
+                });
+            });
+
+            setAttendances(attendanceData);
+            message.success("A new attendance added successfully");
+
+        } catch (e) {
+            console.error("Error adding document: ");
+        }
+    };
+
+    useEffect(() => {
+        showAttendenceData();
+    }, [attendances])
+
+    const handleAttendanceDelete = async (attendance) => {
+
+        try {
+            await deleteDoc(doc(firestore, "attendance", attendance.id));
+            let documentsAfterDelete = attendances.filter(doc => doc.id !== attendance.id)
+            // setAllDocuments(documentsAfterDelete)
+            setAttendances(documentsAfterDelete);
+            // setDocuments(documentsAfterDelete)
+            message.success("attendance deleted successfully")
+        } catch (err) {
+            console.error(err)
+            message.error("something went wrong while delting attendance")
+        }
+    }
+
+    const openEditeAttendance = async (attendance) => {
+        // console.log("course", course)
+        const docRef = doc(firestore, "attendance", attendance.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            const todo = docSnap.data();
+            console.log("todo", todo);
+            setAttendanceData(todo);
+        } else {
+            message.error("attendance not found");
+        }
+    }
+    useEffect(() => {
+        console.log("editeCourseField111", attendanceData)
+    }, [attendanceData])
+
+    const editeAttendance = async (e) => {
+        e.preventDefault()
+        // console.log("courseData1122", courseData)
+
+        let { name, date, status } = attendanceData
+
+        if (!name) { return message.error("Please Enter Name") }
+
+        const editedAttendancesData = {
+            ...attendanceData,
+            name, date, status,
+        }
+
+        try {
+            await setDoc(doc(firestore, "attendance", editedAttendancesData.id), editedAttendancesData);
+
+            const attendancesCollection = collection(db, 'attendance'); // Replace 'courses' with the actual name of your Firestore collection
+            const querySnapshot = await getDocs(attendancesCollection);
+
+            // Extract course data from the query snapshot and store it in state
+            const attendanceData = [];
+            querySnapshot.forEach((doc) => {
+                const attendance = doc.data();
+                attendanceData.push({
+                    id: doc.id, // Assuming your documents have unique IDs in Firestore
+                    ...attendance,
+                });
+            });
+
+            setAttendances(attendanceData);
+
+            message.success("attendance updated successfully")
+        } catch (e) {
+            console.error("Error adding document: ", e);
+        }
+    }
+
+    const showAttendenceData = () => {
         return (
             <>
-                <div className="card mx-auto mt-5 w-50">
+                <div className="card mx-auto mt-5">
                     <div className="card-body">
                         <h5 className="card-title text-center w-75 d-inline-block">Attendance Details</h5>
                         <Button className='w-25' data-bs-toggle="modal" data-bs-target="#exampleModal2">Add Attendance</Button>
@@ -592,15 +910,21 @@ export default function Dashboard() {
                             <table className="table table-striped table-hover">
                                 <thead>
                                     <tr>
+                                        <th scope="col">name</th>
                                         <th scope="col">Date</th>
                                         <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {attendance.map((record, index) => (
-                                        <tr key={record.id}>
-                                            <td>{record.date}</td>
-                                            <td>{record.status}</td>
+                                    {attendance.map((attendance, index) => (
+                                        <tr key={attendance.id}>
+                                            <td>{attendance.name}</td>
+                                            <td>{attendance.date}</td>
+                                            <td>{attendance.status}</td>
+                                            <td className='px-0'>
+                                                <Button type="primary" className='me-1' icon={<EditOutlined />} data-bs-toggle="modal" id='editeDoc' data-bs-target="#editeModal2" onClick={() => openEditeAttendance(attendance)} />
+                                                <Button danger icon={<DeleteOutlined />} onClick={() => { handleAttendanceDelete(attendance) }} />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -609,34 +933,67 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Modal for adding a course */}
+                {/* Modal for adding a Attendance */}
                 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Course</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Attendance</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <Col xs={24} lg={24}>
                                     <Form.Item label="Name">
-                                        <Input placeholder='Input Course Name' name='name' onChange={handleChange} />
+                                        <Input placeholder='Input Attendance Name' name='name' onChange={handleAttendanceChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
-                                    <Form.Item label="Code">
-                                        <Input placeholder='Input Course Code' name='code' onChange={handleChange} />
+                                    <Form.Item label="date">
+                                        <Input placeholder='Input Attendance Date' name='date' onChange={handleAttendanceChange} />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} lg={24}>
-                                    <Form.Item label="Description">
-                                        <Input placeholder='Input Course Description' name='description' onChange={handleChange} />
+                                    <Form.Item label="status">
+                                        <Input placeholder='Input Attendance Status' name='status' onChange={handleAttendanceChange} />
                                     </Form.Item>
                                 </Col>
                             </div>
                             <div class="modal-footer">
                                 <Button className='w-25' data-bs-dismiss="modal">Close</Button>
-                                <Button className='w-25' onClick={handleAddCourse}>Add</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={handleAddAttendance}>Add</Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Modal Edite for Attendance */}
+                <div class="modal fade" id="editeModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Edite Attendance</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Name">
+                                        <Input placeholder='Input Attendance Name' name='name' value={attendanceData.name} onChange={handleAttendanceChange} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Date">
+                                        <Input placeholder='Input Attendance Date' name='date' value={attendanceData.date} onChange={handleAttendanceChange} />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={24} lg={24}>
+                                    <Form.Item label="Status">
+                                        <Input placeholder='Input Attendance Status' name='status' value={attendanceData.status} onChange={handleAttendanceChange} />
+                                    </Form.Item>
+                                </Col>
+                            </div>
+                            <div class="modal-footer">
+                                <Button className='w-25' data-bs-dismiss="modal">Close</Button>
+                                <Button className='w-25' data-bs-dismiss="modal" onClick={editeAttendance}>Edite</Button>
 
                             </div>
                         </div>
@@ -1045,12 +1402,10 @@ export default function Dashboard() {
                                             Dashboard
                                         </Link>
                                     </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("profile")}>
-                                            <i className="bi bi-person-bounding-box"></i>
-                                            Profile
-                                        </Link>
-                                    </li>
+                                    <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                                        <span>Education Details</span>
+                                        <i className="bi bi-card-heading"></i>
+                                    </h6>
                                     <li className="nav-item">
                                         <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("courses")}>
                                             <i className="bi bi-book-half"></i>
@@ -1111,6 +1466,13 @@ export default function Dashboard() {
                                             Settings
                                         </Link>
                                     </li> */}
+
+                                    <li className="nav-item">
+                                        <Link className="nav-link d-flex align-items-center gap-2" onClick={() => setSelectedData("profile")}>
+                                            <i className="bi bi-person-bounding-box"></i>
+                                            Profile
+                                        </Link>
+                                    </li>
                                     <li className="nav-item">
                                         <Link className="nav-link d-flex align-items-center gap-2" onClick={handleLogout}>
                                             <i className="bi bi-door-open-fill"></i>
@@ -1126,7 +1488,7 @@ export default function Dashboard() {
                         {selectedData === 'profile' && ShowProfileData()}
                         {selectedData === 'courses' && showCoursesData()}
                         {selectedData === 'teachers' && showTeachersData()}
-                        {selectedData === 'attendence' && showattendenceData()}
+                        {selectedData === 'attendence' && showAttendenceData()}
                         {selectedData === 'results' && showResultsData()}
                         {selectedData === 'assignments' && showAssignmentsData()}
                         {selectedData === 'reports' && showReportsData()}

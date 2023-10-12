@@ -47,7 +47,7 @@ export default function Register() {
     const userData = {
       fullName, email, uid, dob, file, password, course,
       dateCreated: serverTimestamp(),
-      status: "active",
+      status: "pending",
       roles: "admin"
     }
 
@@ -106,7 +106,7 @@ export default function Register() {
                 <p className='mb-0 mt-3 text-center'>Already User: <Link to="/auth/login" className='text-danger fw-bold'>Login</Link> </p>
               </Form>
 
-              <Divider className='my-2' />
+              {/* <Divider className='my-2' />
 
               <Button
                 type="default"
@@ -115,7 +115,7 @@ export default function Register() {
                 className="w-100 fs-5"
               >
                 SIGN IN WITH GOOGLE
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>

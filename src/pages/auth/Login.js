@@ -97,14 +97,14 @@ export default function Login() {
                 <p className='mb-0 mt-3 text-center'>New User: <Link to="/auth/register" className='text-danger fw-bold'>Register</Link> </p>
               </Form>
 
-              <Button
+              {/* <Button
                 type="default"
                 onClick={handleGoogleSignIn}
                 style={{ height: "50px", fontWeight: "bold", borderWidth: "5px" }}
                 className="w-100 fs-5"
               >
                 SIGN IN WITH GOOGLE
-              </Button>
+              </Button> */}
 
             </div>
           </div>
